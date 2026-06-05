@@ -19,7 +19,19 @@ while True:
     user_input = input("\n你：")
     if user_input.lower() == "quit":  #lower 转化成小写
         print('AI:再见！')
-        break
+        timestamp = datetime.now().strftime("%Y-%m-%d %H_%M_%S")   #获取当前时间    后面乱码是格式化成20260604_153022 这种格式  切记windows系统的时间不能用冒号  得用下划线
+        filename = f"chat_{timestamp}.txt" #这就是文件名  就是chat_20260604_153022
+        with open(filename,'w',encoding="utf-8") as f:   #  “w”表示写入模式（write）   with-as f   就是启动一个上下文管理器来管理这个文件  open是打开文件  as-f  是把打开文件赋值给f  所以后面都是f.write
+            for i in message:   #遍历message列表 根据角色写入不同的前缀
+                role = i["role"]
+                content = i["content"]
+                if role == "system":
+                    f.write(f"[系统设定]{content}\n")
+                elif role == "user":
+                    f.write(f"[用户]{content}\n]")
+                elif role == "assistant":
+                    f.write(f"[AI]{content}\n")
+        print(f"对话保存在{filename}")
 
     message.append({"role":"user","content":user_input})
     response = requests.post(URL,headers= {'Authorization': f"Bearer {API_KEY}"},json={"model":"deepseek-chat","messages":message})
