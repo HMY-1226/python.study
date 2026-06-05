@@ -1,7 +1,7 @@
 
 import requests  #引入网络请求库，用来给api服务器发消息
 
-API_KEY = 'sk-4da8a85fa41549acb658c91cc7eccd12'
+API_KEY = '填你的api就行'
 URL = "https://api.deepseek.com/v1/chat/completions"
 
 response  = requests.post(URL, headers={'Authorization': f"Bearer {API_KEY}"},json = {"model":"deepseek-chat","messages":[{"role":"user","content":"你好"}]})
