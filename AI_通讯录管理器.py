@@ -6,7 +6,7 @@ import requests
 
 
 DATA_FILE  = "contacts.json"
-API_KEY = "sk-4da8a85fa41549acb658c91cc7eccd12"
+API_KEY = "自己的api"
 URL = "https://api.deepseek.com/v1/chat/completions"
 
 
