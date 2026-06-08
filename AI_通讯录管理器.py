@@ -59,9 +59,9 @@ def show_all(contacts):
     if not contacts:
         return '通讯录为空'
     reply = f"共有{len(contacts)}个联系人."
-    for i,c in enumerate(contacts,1):
-        reply += f"{i},{c['name']},{c['phone']}"
-    return reply.strip()
+    for i,c in enumerate(contacts,1):  #把列表格式初始化成字符串    1是其实序号
+        reply += f"{i},{c['name']},{c['phone']}"  #(1, {'name': '张三', 'phone': '123'})、(2, {'name': '李四', 'phone': '456'})
+    return reply.strip() #依旧去掉字符串首尾
 
 
 def main():
