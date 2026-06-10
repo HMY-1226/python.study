@@ -29,27 +29,42 @@ print('输入quit退出对话')
 print("=============================")
 
 def organize_folder(folder_path):
-    if not os.path.exists(folder_path):  #判断是否存在   os.path  是python用来记录文件路径专用的  exists是存不存在     isdir是不是文件夹    join把路径和文件名拼在一起，自动用正确的斜杠
+    if not os.path.exists(folder_path):
+        #判断是否存在   os.path  是python用来记录文件路径专用的  exists是存不存在     isdir是不是文件夹    join把路径和文件名拼在一起，自动用正确的斜杠
+        #folder_path  是要整理的文件夹的名字
         return  f"文件不存在：{folder_path}"
 
-    moved = 0
-    skipped = 0
+    moved = 0  #成功移动的文件数
+    skipped = 0  #跳过的数量
 
     for filename in os.listdir(folder_path):
+        #遍历这个被变成列表的文件夹的名字   非完整路径
         file_path = os.path.join(folder_path, filename)
+        #把文件夹路径和名字拼在一起  合成完整路径
 
-        if os.path.isfile(file_path):
+        if os.path.isdir(file_path):
+            #如果是文件夹就跳过
             skipped += 1
+            #次数加一
             continue
         _, ext = os.path.splitext(filename)
+        #splitext 把文件名拆成名字加后缀
+        #_是表示“这个名字我不需要，丢掉”，只要后缀赋给 ext
         ext = ext.lower()
+        #后缀转化成小写   JPG-jpg
         category = CATEGORIES.get(ext,"其他")
+        #去字典CATEGORIES里找这个后缀属于哪个类别名   jpg-图片   如果没有返回其他
 
         category_path = os.path.join(folder_path, category)
+        #拼出类别名的路径
         if not(os.path.exists(category_path)):
+            #如果不存在这个路径
             os.makedirs(category_path)
+            #自己创建
         destination_path = os.path.join(category_path, filename)
+        #拼出路径
         shutil.move(file_path , destination_path)
+        #把文件从源路径到目标路径
         moved += 1
     return f"整理完成！共移动{moved}个文件到对应分类，跳过{skipped}个文件夹"
 def main():
