@@ -3,7 +3,7 @@ import json
 import requests
 import shutil
 
-API_KEY = 'sk-4da8a85fa41549acb658c91cc7eccd12'
+API_KEY = 'sk-。。。。。'
 URL = "https://api.deepseek.com/v1/chat/completions"
 
 
